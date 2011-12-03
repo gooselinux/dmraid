@@ -1,0 +1,12 @@
+diff -ruN 1.0.0.rc16-orig/lib/Makefile.in 1.0.0.rc16/lib/Makefile.in
+--- 1.0.0.rc16-orig/lib/Makefile.in	2009-09-17 00:32:35.000000000 +0200
++++ 1.0.0.rc16/lib/Makefile.in	2010-07-14 16:05:38.000000000 +0200
+@@ -72,7 +72,7 @@
+ 	@echo $(TARGETS) $(INSTALL_TARGETS)
+ 
+ $(LIB_EVENTS_SHARED):
+-	$(CC) events/$(LIB_EVENTS_NAME).c $(INCLUDES) $(CFLAGS) $(LDFLAGS) -shared  -Wl,-soname,$(notdir $@).$(DMRAID_LIB_VERSION) -o $@ -ldevmapper -ldevmapper-event $(LIB_SHARED)
++	$(CC) events/$(LIB_EVENTS_NAME).c $(INCLUDES) $(CFLAGS) $(LDFLAGS) -shared  -Wl,-soname,$(notdir $@).$(DMRAID_LIB_VERSION) -o $@ -ldevmapper -ldevmapper-event $(LIB_SHARED) -lpthread
+ 
+ .PHONY: install_dmraid_libs remove_dmraid_libs
+ 

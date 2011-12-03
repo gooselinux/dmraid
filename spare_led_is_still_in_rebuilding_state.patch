@@ -1,0 +1,35 @@
+diff --git a/lib/events/libdmraid-events-isw.c b/lib/events/libdmraid-events-isw.c
+index 150c878..653386f 100644
+--- a/lib/events/libdmraid-events-isw.c
++++ b/lib/events/libdmraid-events-isw.c
+@@ -729,7 +729,7 @@ static int _lib_main(char op, const char *device)
+ 			      _dso_perform(lc, lib_argv + lib_argc, action);
+ 
+ 			if (!ret &&
+-			    action == GET_MEMBERS)
++			    action == GET_MEMBERS) 
+ 				ret = _repopulate(device, (char *)OPT_STR(lc, LC_REBUILD_SET));
+ 		}
+ 
+@@ -1034,14 +1034,16 @@ static int _rebuild(enum rebuild_type rebuild_type, const char *dev_name)
+ 		break;
+ 
+ 	case REBUILD_END:
+-		if (!_lib_main('F', dev_name) ||
+-		    !_lib_main('r', dev_name))
++		if (!_lib_main('F', dev_name)) {
+ 			syslog(LOG_NOTICE, "Rebuild of RAID set %s complete",
+-			       dev_name);
+-
++					dev_name);
++			_lib_main('r', dev_name); 
++		} 
++			
+ 		/* Turn all RAID set LEDs off anyway, since it's in-sync.*/
+ 		/* Used also for manual rebuild. */
+ 		_dev_led_all(DSO_LED_OFF, rs);
++		break;
+ 	}
+ 
+ 	return ret;
+
